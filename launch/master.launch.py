@@ -35,7 +35,15 @@ def generate_launch_description():
         }.items(),
     )
 
+    # launch navigation stack
+    launch_nav2 = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(current_dir, "launch", "bringup.launch.py"),
+        )
+    )
+
     ld.add_action(launch_twist_mux)
     ld.add_action(launch_twist_joy)
+    ld.add_action(launch_nav2)
 
     return ld
