@@ -36,7 +36,8 @@ def generate_launch_description():
     bringup_dir = get_package_share_directory("warehousebot_navigation")
     launch_dir = os.path.join(bringup_dir, "launch")
 
-    map_name = "dmro_sim_map.yaml"
+    # map_name = "dmro_sim_map.yaml"
+    map_name = "2005375_full_map.yaml"
 
     # Create the launch configuration variables
     namespace = LaunchConfiguration("namespace")
@@ -112,7 +113,7 @@ def generate_launch_description():
 
     declare_use_composition_cmd = DeclareLaunchArgument(
         "use_composition",
-        default_value="True",
+        default_value="False",
         description="Whether to use composed bringup",
     )
 

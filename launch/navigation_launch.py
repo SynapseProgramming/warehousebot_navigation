@@ -32,6 +32,8 @@ def generate_launch_description():
 
     namespace = LaunchConfiguration("namespace")
     use_sim_time = LaunchConfiguration("use_sim_time")
+    default_nav_to_pose_bt = LaunchConfiguration("default_nav_to_pose_bt")
+    default_nav_to_poses_bt = LaunchConfiguration("default_nav_to_poses_bt")
     autostart = LaunchConfiguration("autostart")
     params_file = LaunchConfiguration("params_file")
     use_composition = LaunchConfiguration("use_composition")
@@ -59,7 +61,12 @@ def generate_launch_description():
     remappings = [("/tf", "tf"), ("/tf_static", "tf_static")]
 
     # Create our own temporary YAML files that include substitutions
-    param_substitutions = {"use_sim_time": use_sim_time, "autostart": autostart}
+    param_substitutions = {
+        "use_sim_time": use_sim_time,
+        "autostart": autostart,
+        "default_nav_to_pose_bt_xml": default_nav_to_pose_bt,
+        "default_nav_through_poses_bt_xml": default_nav_to_poses_bt,
+    }
 
     configured_params = RewrittenYaml(
         source_file=params_file,
@@ -70,6 +77,26 @@ def generate_launch_description():
 
     stdout_linebuf_envvar = SetEnvironmentVariable(
         "RCUTILS_LOGGING_BUFFERED_STREAM", "1"
+    )
+
+    declare_bt_pose_xml_cmd = DeclareLaunchArgument(
+        "default_nav_to_pose_bt",
+        default_value=os.path.join(
+            bringup_dir,
+            "behaviour_trees",
+            "nav_through_pose.xml",
+        ),
+        description="Full path to the behavior tree xml file to use",
+    )
+
+    declare_bt_poses_xml_cmd = DeclareLaunchArgument(
+        "default_nav_to_poses_bt",
+        default_value=os.path.join(
+            bringup_dir,
+            "behaviour_trees",
+            "nav_through_poses.xml",
+        ),
+        description="Full path to the behavior tree xml file to use",
     )
 
     declare_namespace_cmd = DeclareLaunchArgument(
@@ -295,6 +322,8 @@ def generate_launch_description():
     ld.add_action(declare_container_name_cmd)
     ld.add_action(declare_use_respawn_cmd)
     ld.add_action(declare_log_level_cmd)
+    ld.add_action(declare_bt_pose_xml_cmd)
+    ld.add_action(declare_bt_poses_xml_cmd)
     # Add the actions to launch all of the navigation nodes
     ld.add_action(load_nodes)
     ld.add_action(load_composable_nodes)
