@@ -149,7 +149,7 @@ controller_server:
       max_vel_theta: 1.0
       min_speed_xy: 0.0
       max_speed_xy: 0.35
-      min_speed_theta: 0.0
+      min_speed_theta: 0.1
       acc_lim_x: 2.0
       acc_lim_y: 0.0
       acc_lim_theta: 2.0
@@ -234,8 +234,8 @@ local_costmap:
 global_costmap:
   global_costmap:
     ros__parameters:
-      update_frequency: 10.0
-      publish_frequency: 10.0
+      update_frequency: 5.0
+      publish_frequency: 5.0
       global_frame: map
       robot_base_frame: base_link
       use_sim_time: True
