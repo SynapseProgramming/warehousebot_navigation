@@ -17,7 +17,6 @@ def generate_launch_description():
     current_dir = get_package_share_directory("warehousebot_navigation")
     bot_desc_dir = get_package_share_directory("warehousebot_description")
     twist_mux_dir = get_package_share_directory("twist_mux")
-    slam_toolbox_dir = get_package_share_directory("slam_toolbox")
     joy_teleop_dir = get_package_share_directory("teleop_twist_joy")
     r2_inter_dir = get_package_share_directory("labview_r2interface")
 
@@ -87,13 +86,6 @@ def generate_launch_description():
         condition=IfCondition(PythonExpression(["not ", slam])),
     )
 
-    # launch slam toolbox
-    launch_slam_toolbox = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(slam_toolbox_dir, "launch", "online_async_launch.py"),
-        ),
-        condition=IfCondition(slam),
-    )
 
     # launch robot state publisher
     launch_bot_desc = IncludeLaunchDescription(
@@ -116,7 +108,6 @@ def generate_launch_description():
     ld.add_action(launch_twist_joy)
     ld.add_action(launch_rviz2_nav)
     ld.add_action(launch_rviz2_slam)
-    ld.add_action(launch_slam_toolbox)
     ld.add_action(launch_nav2)
     ld.add_action(launch_bot_desc)
     ld.add_action(launch_r2inter)
