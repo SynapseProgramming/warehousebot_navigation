@@ -25,6 +25,7 @@ def generate_launch_description():
     slam = LaunchConfiguration("slam")
     rviz_nav_config_dir = LaunchConfiguration("rviz_nav_config_dir")
     rviz_slam_config_dir = LaunchConfiguration("rviz_slam_config_dir")
+    teleop_config = LaunchConfiguration("teleop_config")
 
     declare_rviz_nav_config = DeclareLaunchArgument(
         "rviz_nav_config_dir",
@@ -36,6 +37,12 @@ def generate_launch_description():
         "rviz_slam_config_dir",
         default_value=os.path.join(current_dir, "rviz", "slam_config.rviz"),
         description="default path to rviz slam config file",
+    )
+
+    declare_teleop_config = DeclareLaunchArgument(
+        "teleop_config",
+        default_value=os.path.join(current_dir, "params", "teleop_params.yaml"),
+        description="default path to teleop config file",
     )
 
     declare_slam_cmd = DeclareLaunchArgument(
@@ -55,6 +62,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "joy_vel": "joy_vel",
+            "config_filepath": teleop_config,
         }.items(),
     )
 
@@ -86,7 +94,6 @@ def generate_launch_description():
         condition=IfCondition(PythonExpression(["not ", slam])),
     )
 
-
     # launch robot state publisher
     launch_bot_desc = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -101,10 +108,11 @@ def generate_launch_description():
         ),
     )
 
-    ld.add_action(launch_twist_mux)
     ld.add_action(declare_rviz_nav_config)
     ld.add_action(declare_rviz_slam_config)
+    ld.add_action(declare_teleop_config)
     ld.add_action(declare_slam_cmd)
+    ld.add_action(launch_twist_mux)
     ld.add_action(launch_twist_joy)
     ld.add_action(launch_rviz2_nav)
     ld.add_action(launch_rviz2_slam)
