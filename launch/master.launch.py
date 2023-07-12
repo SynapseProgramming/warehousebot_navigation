@@ -63,7 +63,8 @@ def generate_launch_description():
     launch_nav2 = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(current_dir, "launch", "bringup.launch.py"),
-        )
+        ),
+        condition=IfCondition(PythonExpression(["not ", slam])),
     )
 
     ld.add_action(launch_twist_mux)
