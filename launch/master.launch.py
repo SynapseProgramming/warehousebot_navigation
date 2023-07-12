@@ -25,11 +25,18 @@ def generate_launch_description():
 
     slam = LaunchConfiguration("slam")
     rviz_nav_config_dir = LaunchConfiguration("rviz_nav_config_dir")
+    rviz_slam_config_dir = LaunchConfiguration("rviz_slam_config_dir")
 
     declare_rviz_nav_config = DeclareLaunchArgument(
         "rviz_nav_config_dir",
         default_value=os.path.join(current_dir, "rviz", "live_nav.rviz"),
         description="default path to rviz nav config file",
+    )
+
+    declare_rviz_slam_config = DeclareLaunchArgument(
+        "rviz_slam_config_dir",
+        default_value=os.path.join(current_dir, "rviz", "slam_config.rviz"),
+        description="default path to rviz slam config file",
     )
 
     declare_slam_cmd = DeclareLaunchArgument(
@@ -52,13 +59,23 @@ def generate_launch_description():
         }.items(),
     )
 
-    # launch rviz2
+    # launch rviz2 for nav
     launch_rviz2_nav = Node(
         condition=IfCondition(PythonExpression(["not ", slam])),
         package="rviz2",
         executable="rviz2",
         name="rviz2",
         arguments=["-d", rviz_nav_config_dir],
+        output="screen",
+    )
+
+    # launch rviz2 for slam
+    launch_rviz2_slam = Node(
+        condition=IfCondition(slam),
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        arguments=["-d", rviz_slam_config_dir],
         output="screen",
     )
 
@@ -94,9 +111,11 @@ def generate_launch_description():
 
     ld.add_action(launch_twist_mux)
     ld.add_action(declare_rviz_nav_config)
+    ld.add_action(declare_rviz_slam_config)
     ld.add_action(declare_slam_cmd)
     ld.add_action(launch_twist_joy)
     ld.add_action(launch_rviz2_nav)
+    ld.add_action(launch_rviz2_slam)
     ld.add_action(launch_slam_toolbox)
     ld.add_action(launch_nav2)
     ld.add_action(launch_bot_desc)
