@@ -16,6 +16,7 @@ def generate_launch_description():
 
     current_dir = get_package_share_directory("warehousebot_navigation")
     twist_mux_dir = get_package_share_directory("twist_mux")
+    slam_toolbox_dir = get_package_share_directory("slam_toolbox")
     joy_teleop_dir = get_package_share_directory("teleop_twist_joy")
 
     ld = LaunchDescription()
@@ -67,11 +68,19 @@ def generate_launch_description():
         condition=IfCondition(PythonExpression(["not ", slam])),
     )
 
+    launch_slam_toolbox = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(slam_toolbox_dir, "launch", "online_async_launch.py"),
+        ),
+        condition=IfCondition(slam),
+    )
+
     ld.add_action(launch_twist_mux)
     ld.add_action(declare_rviz_nav_config)
     ld.add_action(declare_slam_cmd)
     ld.add_action(launch_twist_joy)
     ld.add_action(launch_rviz2_nav)
+    ld.add_action(launch_slam_toolbox)
     ld.add_action(launch_nav2)
 
     return ld
