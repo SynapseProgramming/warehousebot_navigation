@@ -19,6 +19,7 @@ def generate_launch_description():
     twist_mux_dir = get_package_share_directory("twist_mux")
     slam_toolbox_dir = get_package_share_directory("slam_toolbox")
     joy_teleop_dir = get_package_share_directory("teleop_twist_joy")
+    r2_inter_dir = get_package_share_directory("labview_r2interface")
 
     ld = LaunchDescription()
 
@@ -77,9 +78,17 @@ def generate_launch_description():
         condition=IfCondition(slam),
     )
 
+    # launch robot state publisher
     launch_bot_desc = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(bot_desc_dir, "launch", "bot_description.py"),
+        ),
+    )
+
+    # launch hardware drivers
+    launch_r2inter = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(r2_inter_dir, "launch", "lidar_odom.launch.py"),
         ),
     )
 
@@ -91,5 +100,6 @@ def generate_launch_description():
     ld.add_action(launch_slam_toolbox)
     ld.add_action(launch_nav2)
     ld.add_action(launch_bot_desc)
+    ld.add_action(launch_r2inter)
 
     return ld
