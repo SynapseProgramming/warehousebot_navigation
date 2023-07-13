@@ -348,6 +348,6 @@ velocity_smoother:
     max_decel: [-2.0, 0.0, -2.0]
     odom_topic: "odom"
     odom_duration: 0.1
-    deadband_velocity: [0.0, 0.0, 0.0]
+    deadband_velocity: [0.0, 1.0, 0.0]
     velocity_timeout: 1.0
     # robot wheel max acceleration: 8.767 rad/s^2
