@@ -126,7 +126,7 @@ def generate_launch_description():
     ld.add_action(launch_rviz2_slam)
     ld.add_action(launch_nav2)
     ld.add_action(launch_bot_desc)
-    ld.add_action(launch_r2inter)
-    ld.add_action(launch_realsense)
+    # ld.add_action(launch_r2inter)
+    # ld.add_action(launch_realsense)
 
     return ld
