@@ -19,6 +19,7 @@ def generate_launch_description():
     twist_mux_dir = get_package_share_directory("twist_mux")
     joy_teleop_dir = get_package_share_directory("teleop_twist_joy")
     r2_inter_dir = get_package_share_directory("labview_r2interface")
+    realsense_dir = get_package_share_directory("realsense2_camera")
 
     ld = LaunchDescription()
 
@@ -108,6 +109,13 @@ def generate_launch_description():
         ),
     )
 
+    # launch intel realsense depth camera drivers
+    launch_realsense = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(realsense_dir, "launch", "rs_launch.py"),
+        ),
+    )
+
     ld.add_action(declare_rviz_nav_config)
     ld.add_action(declare_rviz_slam_config)
     ld.add_action(declare_teleop_config)
@@ -119,5 +127,6 @@ def generate_launch_description():
     ld.add_action(launch_nav2)
     ld.add_action(launch_bot_desc)
     ld.add_action(launch_r2inter)
+    ld.add_action(launch_realsense)
 
     return ld
