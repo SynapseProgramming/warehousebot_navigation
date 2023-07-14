@@ -7,10 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /TF1/Frames1
-        - /RobotModel1
         - /RobotModel1/Description Topic1
-        - /LaserScan2
-        - /Map1
         - /Map1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 866
@@ -64,14 +61,26 @@ Visualization Manager:
           Value: false
         base_link:
           Value: false
-        caster_bottom_left_link:
-          Value: false
-        caster_bottom_right_link:
-          Value: false
-        caster_top_left_link:
-          Value: false
-        caster_top_right_link:
-          Value: false
+        camera_bottom_screw_frame:
+          Value: true
+        camera_color_frame:
+          Value: true
+        camera_color_optical_frame:
+          Value: true
+        camera_depth_frame:
+          Value: true
+        camera_depth_optical_frame:
+          Value: true
+        camera_infra1_frame:
+          Value: true
+        camera_infra1_optical_frame:
+          Value: true
+        camera_infra2_frame:
+          Value: true
+        camera_infra2_optical_frame:
+          Value: true
+        camera_link:
+          Value: true
         map:
           Value: true
         odom:
@@ -92,14 +101,20 @@ Visualization Manager:
               base_link:
                 base_laser:
                   {}
-                caster_bottom_left_link:
-                  {}
-                caster_bottom_right_link:
-                  {}
-                caster_top_left_link:
-                  {}
-                caster_top_right_link:
-                  {}
+                camera_bottom_screw_frame:
+                  camera_link:
+                    camera_color_frame:
+                      camera_color_optical_frame:
+                        {}
+                    camera_depth_frame:
+                      camera_depth_optical_frame:
+                        {}
+                    camera_infra1_frame:
+                      camera_infra1_optical_frame:
+                        {}
+                    camera_infra2_frame:
+                      camera_infra2_optical_frame:
+                        {}
                 wheel_left_link:
                   {}
                 wheel_right_link:
@@ -121,14 +136,14 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 0
+      Max Intensity: 33288
       Min Color: 0; 0; 0
       Min Intensity: 0
       Name: LaserScan
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.029999999329447746
       Style: Flat Squares
       Topic:
         Depth: 5
@@ -172,22 +187,43 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        caster_bottom_left_link:
+        camera_bottom_screw_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
-        caster_bottom_right_link:
+        camera_color_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
-        caster_top_left_link:
+        camera_color_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
-        caster_top_right_link:
+        camera_depth_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra1_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra1_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra2_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra2_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -210,40 +246,6 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz_default_plugins/LaserScan
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 0
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: LaserScan
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.029999999329447746
-      Style: Flat Squares
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /scan
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
       Color Scheme: map
@@ -349,6 +351,61 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /plan
       Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: LocalCostmap
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /local_costmap/costmap
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /local_costmap/costmap_updates
+      Use Timestamp: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/PointCloud2
+      Color: 28; 113; 216
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: STVL Local
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.05000000074505806
+      Style: Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /local_costmap/voxel_grid
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -395,25 +452,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 29.506839752197266
+      Distance: 13.83482551574707
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 3.8244516849517822
-        Y: -9.787297248840332
-        Z: 1.1905027627944946
+        X: -1.8140145540237427
+        Y: -3.9068446159362793
+        Z: -0.009791547432541847
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.519796371459961
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.230402708053589
+      Yaw: 3.103588819503784
     Saved: ~
 Window Geometry:
   Displays:
