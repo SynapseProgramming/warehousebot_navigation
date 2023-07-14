@@ -156,10 +156,10 @@ controller_server:
       decel_lim_x: -2.0
       decel_lim_y: 0.0
       decel_lim_theta: -2.0
-      vx_samples: 20
+      vx_samples: 10
       vy_samples: 0
-      vtheta_samples: 40
-      sim_time: 2.0
+      vtheta_samples: 30
+      sim_time: 1.5
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
@@ -232,7 +232,7 @@ local_costmap:
         update_footprint_enabled: true
         combination_method: 1
         origin_z: 0.0
-        publish_voxel_map: true
+        publish_voxel_map: false
         transform_tolerance: 0.2
         mapping_mode: false
         map_save_duration: 60.0
@@ -309,7 +309,7 @@ global_costmap:
         update_footprint_enabled: true
         combination_method: 1
         origin_z: 0.0
-        publish_voxel_map: true
+        publish_voxel_map: false
         transform_tolerance: 0.2
         mapping_mode: false
         map_save_duration: 60.0
