@@ -42,17 +42,13 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
         "params_file",
-        default_value=os.path.join(
-            current_dir, "params", "keepout_params.yaml"
-        ),
+        default_value=os.path.join(current_dir, "params", "keepout_params.yaml"),
         description="Full path to the ROS 2 parameters file to use",
     )
 
     declare_mask_yaml_file_cmd = DeclareLaunchArgument(
         "mask",
-        default_value=os.path.join(
-            current_dir, "maps", "dmro_sim_bun.yaml"
-        ),
+        default_value=os.path.join(current_dir, "maps", "dmro_sim_bun.yaml"),
         description="Full path to filter mask yaml file to load",
     )
 
@@ -81,6 +77,7 @@ def generate_launch_description():
             {"use_sim_time": use_sim_time},
             {"autostart": autostart},
             {"node_names": lifecycle_nodes},
+            {"bond_timeout": 4.0},
         ],
     )
 
