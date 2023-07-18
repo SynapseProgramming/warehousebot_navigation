@@ -36,14 +36,16 @@ def generate_launch_description():
     bringup_dir = get_package_share_directory("warehousebot_navigation")
     launch_dir = os.path.join(bringup_dir, "launch")
 
-    # map_name = "dmro_sim_map.yaml"
-    map_name = "2005375_full_map.yaml"
+    map_name = "dmro_sim_map.yaml"
+    filter_map_name = "dmro_sim_bun.yaml"
+    # map_name = "2005375_full_map.yaml"
 
     # Create the launch configuration variables
     namespace = LaunchConfiguration("namespace")
     use_namespace = LaunchConfiguration("use_namespace")
     slam = LaunchConfiguration("slam")
     map_yaml_file = LaunchConfiguration("map")
+    filter_map_yaml_file = LaunchConfiguration("filter_map")
     use_sim_time = LaunchConfiguration("use_sim_time")
     params_file = LaunchConfiguration("params_file")
     autostart = LaunchConfiguration("autostart")
@@ -91,6 +93,12 @@ def generate_launch_description():
         "map",
         description="Full path to map yaml file to load",
         default_value=os.path.join(bringup_dir, "maps", map_name),
+    )
+
+    declare_filter_map_yaml_cmd = DeclareLaunchArgument(
+        "filter_map",
+        description="Full path to keepout map yaml file to load",
+        default_value=os.path.join(bringup_dir, "maps", filter_map_name),
     )
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -171,6 +179,18 @@ def generate_launch_description():
                     "container_name": "nav2_container",
                 }.items(),
             ),
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(launch_dir, "keepout_filter.launch.py"),
+                ),
+                launch_arguments={
+                    "namespace": namespace,
+                    "mask": filter_map_yaml_file,
+                    "params_file": os.path.join(bringup_dir, "params", "keepout_params.yaml"),
+                    "use_sim_time": use_sim_time,
+                    "autostart": autostart,
+                }.items(),
+            ),
         ]
     )
 
@@ -185,6 +205,7 @@ def generate_launch_description():
     ld.add_action(declare_use_namespace_cmd)
     ld.add_action(declare_slam_cmd)
     ld.add_action(declare_map_yaml_cmd)
+    ld.add_action(declare_filter_map_yaml_cmd)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
     ld.add_action(declare_autostart_cmd)
