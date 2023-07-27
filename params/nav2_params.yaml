@@ -146,7 +146,7 @@ controller_server:
       min_vel_y: 0.0
       max_vel_x: 0.35
       max_vel_y: 0.0
-      max_vel_theta: 1.0
+      max_vel_theta: 0.6
       min_speed_xy: 0.0
       max_speed_xy: 0.35
       min_speed_theta: 0.1
@@ -158,8 +158,8 @@ controller_server:
       decel_lim_theta: -2.0
       vx_samples: 20
       vy_samples: 0
-      vtheta_samples: 20
-      sim_time: 1.5
+      vtheta_samples: 40
+      sim_time: 2.0
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
@@ -423,8 +423,8 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.35, 0.0, 1.0]
-    min_velocity: [-0.35, 0.0, -1.0]
+    max_velocity: [0.35, 0.0, 0.6]
+    min_velocity: [-0.35, 0.0, -0.6]
     max_accel: [2.0, 0.0, 2.0]
     max_decel: [-2.0, 0.0, -2.0]
     odom_topic: "odom"
