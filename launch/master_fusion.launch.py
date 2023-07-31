@@ -36,7 +36,7 @@ def generate_launch_description():
 
     declare_rviz_slam_config = DeclareLaunchArgument(
         "rviz_slam_config_dir",
-        default_value=os.path.join(current_dir, "rviz", "localization_test.rviz"),
+        default_value=os.path.join(current_dir, "rviz", "slam_config.rviz"),
         description="default path to rviz slam config file",
     )
 
@@ -141,7 +141,7 @@ def generate_launch_description():
     ld.add_action(launch_nav2)
     ld.add_action(launch_bot_desc)
     ld.add_action(launch_r2inter)
-    # ld.add_action(launch_realsense)
+    ld.add_action(launch_realsense)
     ld.add_action(launch_imu_filter)
     ld.add_action(launch_ekf)
 
