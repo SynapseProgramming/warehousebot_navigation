@@ -131,7 +131,7 @@ ekf_filter_node:
         odom0_twist_rejection_threshold: 1.0
 
 
-        imu0: imu/data
+        imu0: imu
 #x     , y     , z,
 #roll  , pitch , yaw,
 #vx    , vy    , vz,
