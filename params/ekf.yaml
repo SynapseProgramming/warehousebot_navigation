@@ -143,7 +143,7 @@ ekf_filter_node:
                       false,  false,  false,
                       false,  false,  false]
         imu0_nodelay: false
-        imu0_differential: true
+        imu0_differential: false
         imu0_relative: true
         imu0_queue_size: 5
         imu0_pose_rejection_threshold: 0.8                 # Note the difference in parameter names
