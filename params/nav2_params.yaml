@@ -134,6 +134,7 @@ controller_server:
     #  yaw_goal_tolerance: 0.25
     #  stateful: True
     general_goal_checker:
+      # stateful checks xy tolerance when turning at goal 
       stateful: False
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 0.30
@@ -146,7 +147,7 @@ controller_server:
       min_vel_y: 0.0
       max_vel_x: 0.4
       max_vel_y: 0.0
-      max_vel_theta: 0.4
+      max_vel_theta: 0.6
       min_speed_xy: 0.0
       max_speed_xy: 0.35
       min_speed_theta: 0.1
@@ -185,7 +186,7 @@ controller_server:
       PathDist.scale: 32.0
       GoalDist.scale: 24.0
       RotateToGoal.scale: 32.0
-      RotateToGoal.slowing_factor: 4.0
+      RotateToGoal.slowing_factor: 5.0
       RotateToGoal.lookahead_time: -1.0
 
 local_costmap:
@@ -423,8 +424,8 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.35, 0.0, 0.4]
-    min_velocity: [-0.35, 0.0, -0.4]
+    max_velocity: [0.35, 0.0, 0.6]
+    min_velocity: [-0.35, 0.0, -0.6]
     max_accel: [2.0, 0.0, 2.0]
     max_decel: [-2.0, 0.0, -2.0]
     odom_topic: "odom"
