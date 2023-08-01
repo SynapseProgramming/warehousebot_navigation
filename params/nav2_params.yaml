@@ -148,11 +148,11 @@ controller_server:
       vy_std: 0.2
       wz_std: 0.4
       vx_max: 0.5
-      vx_min: -0.35
-      vy_max: 0.5
-      wz_max: 1.9
+      vx_min: 0.01
+      vy_max: 0.0
+      wz_max: 0.4
       iteration_count: 1
-      prune_distance: 1.7
+      prune_distance: 1.13
       transform_tolerance: 0.1
       temperature: 0.3
       gamma: 0.015
@@ -199,7 +199,7 @@ controller_server:
         cost_power: 1
         repulsion_weight: 1.5
         critical_weight: 20.0
-        consider_footprint: false
+        consider_footprint: true
         collision_cost: 10000.0
         collision_margin_distance: 0.1
         near_goal_distance: 0.5
