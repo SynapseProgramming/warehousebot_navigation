@@ -36,9 +36,9 @@ def generate_launch_description():
     bringup_dir = get_package_share_directory("warehousebot_navigation")
     launch_dir = os.path.join(bringup_dir, "launch")
 
-   # map_name = "dmro_sim_map.yaml"
-    map_name = "2005375_full_map.yaml"
-    filter_map_name = "dmro_map_filter.yaml"
+    map_name = "sick_map.yaml"
+   # map_name = "2005375_full_map.yaml"
+    filter_map_name = "sick_map.yaml"
     # filter_map_name = "dmro_sim_bun.yaml"
 
     # Create the launch configuration variables
